@@ -3,6 +3,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Exercise3Test {
 
@@ -150,7 +151,7 @@ public class Exercise3Test {
         myHashMap.put("ALGERIA","Algiers");
         myHashMap.put("BENIN","Porto-Novo");
         myHashMap.put("BURKINA FASO","Ouagadougou");
-        myHashMap.put("CHAD","N’djamena");
+        myHashMap.put("CHAD","Nï¿½djamena");
         return myHashMap;
     }
 
@@ -159,7 +160,7 @@ public class Exercise3Test {
         expected.put("ALGERIA","Algiers");
         expected.put("BENIN","Porto-Novo");
         expected.put("BURKINA FASO","Ouagadougou");
-        expected.put("CHAD","N’djamena");
+        expected.put("CHAD","Nï¿½djamena");
         return expected;
     }
 }

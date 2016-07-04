@@ -64,21 +64,39 @@ public class MyHashMap {
 
     public Collection<String> values() {
         // TODO
-        return null;
+        ArrayList<String> values = new ArrayList<String>();
+        for (MyEntry entry : this.entrySet())
+            values.add(entry.getValue());
+        return values;
     }
 
     public String remove(String key) {
         // TODO Returns the value associated with the key removed from the map or null if the key wasn't found
+        int bucketIndex = Math.abs(key.hashCode() % this.capacity);
+        for (MyEntry entry : buckets.get(bucketIndex))
+            if (entry.getKey().equals(key)) {
+                String val = entry.getValue();
+                System.out.print("removing " + val);
+                buckets.get(bucketIndex).remove((Object)entry);
+                return val;
+            }
+
         return null;
     }
 
     public boolean containsKey(String key) {
         // TODO
+        for (String k : this.keySet())
+            if (k.equals(key))
+                return true;
         return false;
     }
 
     public boolean containsValue(String value) {
         // TODO
+        for (String v : this.values())
+            if (v.equals(value))
+                return true;
         return false;
     }
 
@@ -92,6 +110,8 @@ public class MyHashMap {
 
     public void clear() {
         // TODO Remove all the Entry objects from the bucket list
+        for (LinkedList<MyEntry> entry : buckets)
+            entry.clear();
     }
 
     public Set<MyEntry> entrySet() {
@@ -105,7 +125,7 @@ public class MyHashMap {
 
     public boolean isEmpty() {
         // TODO
-        return false;
+        return entrySet().isEmpty();
     }
 
     public static class MyEntry {
