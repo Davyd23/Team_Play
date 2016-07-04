@@ -41,6 +41,10 @@ public class MyHashMap {
 
     public void put(String key, String value) {
         // TODO
+        if (key == null) {
+            buckets.get(0).add(new MyEntry(key, value));
+            return;
+        }
         int bucketIndex = key.hashCode() % this.capacity;
         if (bucketIndex < 0)
             bucketIndex *= -1;
