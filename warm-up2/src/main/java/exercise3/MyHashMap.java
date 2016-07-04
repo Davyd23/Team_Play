@@ -27,16 +27,39 @@ public class MyHashMap {
 
     public String get(String key) {
         // TODO
+        if (key == null)
+            return null;
+        int bucketIndex = key.hashCode() % this.capacity;
+        if (bucketIndex < 0)
+            bucketIndex *= -1;
+        LinkedList<MyEntry> bucket = buckets.get(bucketIndex);
+        for (MyEntry entry : bucket)
+            if (entry.getKey().equals(key))
+                return entry.getValue();
         return null;
     }
 
     public void put(String key, String value) {
         // TODO
+        int bucketIndex = key.hashCode() % this.capacity;
+        if (bucketIndex < 0)
+            bucketIndex *= -1;
+        LinkedList<MyEntry> bucket = buckets.get(bucketIndex);
+        for (MyEntry entry : bucket)
+            if (entry.getKey().equals(key)) {
+                entry.setValue(value);
+                return;
+            }
+        bucket.add(new MyEntry(key, value));
     }
 
     public Set<String> keySet() {
         // TODO
-        return null;
+        Set<String> keySet = new HashSet<String>();
+        for (LinkedList<MyEntry> bucket : buckets)
+            for (MyEntry entry : bucket)
+                keySet.add(entry.getKey());
+        return keySet;
     }
 
     public Collection<String> values() {
@@ -61,7 +84,10 @@ public class MyHashMap {
 
     public int size() {
         // TODO Return the number of the Entry objects stored in all the buckets
-        return 0;
+        int size = 0;
+        for (LinkedList<MyEntry> bucket : buckets)
+            size += bucket.size();
+        return size;
     }
 
     public void clear() {
@@ -70,7 +96,11 @@ public class MyHashMap {
 
     public Set<MyEntry> entrySet() {
         // TODO Return a Set containing all the Entry objects
-        return null;
+        Set<MyEntry> entrySet = new HashSet<MyEntry>();
+        for (LinkedList<MyEntry> bucket : buckets)
+            for (MyEntry entry : bucket)
+                entrySet.add(entry);
+        return entrySet;
     }
 
     public boolean isEmpty() {
